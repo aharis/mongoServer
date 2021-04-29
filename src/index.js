@@ -6,8 +6,8 @@ import config from './config';
 import app from './app';
 
 //ako port nije drfinisan u ovom file, onda kaze da imam nedefinisan port
-//port je definisan u config file, al mu nema pristup
-const port = 5000;
+
+ const port = 5000;
 
 mongoose.connect(config.mongo, 
         {

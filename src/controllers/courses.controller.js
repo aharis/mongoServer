@@ -22,7 +22,7 @@ const list = (req, res) => {
 
 const read =(req, res) => {
    const id = req.params.id;
-   Course.findById(id).exce((err, data) => {
+   Course.findById(id).exec((err, data) => {
     if(err){
         return res.status(400).json(err.message);
     }
@@ -34,19 +34,21 @@ const read =(req, res) => {
 
 const update = (req, res) => {
     const id = req.params.id;
-    Course.findById(id).exce((err, data) =>{
+    Course.findById(id).exec((err, data) => {
         if(err || !data){
             return res.status(400).json('Course not found!');
+    }
+    const course =_.extend(data, req.body);
+    course.save((err, data) => {
+        if(err){
+            return res.status(400).json(err.message);
         }
-        const course = _.extend(data, req.body);
-        course.save((err, data) => {
-          if(err){
-              return res.status(400).json(err.message);
-          }
-          res.status(200).json(data);
-            });
-        })
-}
+        res.status(200).json(data);
+    });
+
+})
+        
+    }
 
 const remove = (req, res) => {
    const id = req.params.id;
